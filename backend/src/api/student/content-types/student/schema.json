@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "students",
+  "info": {
+    "singularName": "student",
+    "pluralName": "students",
+    "displayName": "Student",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "text"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  }
+}
