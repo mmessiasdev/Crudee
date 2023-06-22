@@ -17,8 +17,8 @@ enum Avatar { one, two, three, four, five }
 
 class _AddUserState extends State<AddUser> {
   Avatar? selectAvatar;
-  bool value = false;
-  String type = "";
+  bool active = false;
+  String url = "";
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -61,17 +61,78 @@ class _AddUserState extends State<AddUser> {
                         onClick: () {
                           setState(() {
                             selectAvatar = Avatar.one;
-                            type =
+                            url =
                                 "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038881-ac39566c-2fa5-4bcb-9c18-2df751b0abd2.png";
-                            print(type);
+                            print(url);
                           });
                         },
-                      )
+                      ),
+                      ButtomCont(
+                        url:
+                            'https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038927-28b4047a-fcf1-4ed1-943d-bcf35c8f30d9.png',
+                        border: selectAvatar == Avatar.two
+                            ? PrimaryColor
+                            : SecoundColor,
+                        onClick: () {
+                          setState(() {
+                            selectAvatar = Avatar.two;
+                            url =
+                                "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038927-28b4047a-fcf1-4ed1-943d-bcf35c8f30d9.png";
+                            print(url);
+                          });
+                        },
+                      ),
+                      ButtomCont(
+                        url:
+                            'https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038909-572f9365-9a98-4818-bfbb-90ab9bb1604a.png',
+                        border: selectAvatar == Avatar.three
+                            ? PrimaryColor
+                            : SecoundColor,
+                        onClick: () {
+                          setState(() {
+                            selectAvatar = Avatar.three;
+                            url =
+                                "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038909-572f9365-9a98-4818-bfbb-90ab9bb1604a.png";
+                            print(url);
+                          });
+                        },
+                      ),
+                      ButtomCont(
+                        url:
+                            'https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038922-327de286-991a-4bce-afce-0f68ab971bb9.png',
+                        border: selectAvatar == Avatar.four
+                            ? PrimaryColor
+                            : SecoundColor,
+                        onClick: () {
+                          setState(() {
+                            selectAvatar = Avatar.four;
+                            url =
+                                "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038922-327de286-991a-4bce-afce-0f68ab971bb9.png";
+                            print(url);
+                          });
+                        },
+                      ),
+                      ButtomCont(
+                        url:
+                            'https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038869-545ff5ef-b3da-40c6-a910-bab595d0f0a8.png',
+                        border: selectAvatar == Avatar.five
+                            ? PrimaryColor
+                            : SecoundColor,
+                        onClick: () {
+                          setState(() {
+                            selectAvatar = Avatar.five;
+                            url =
+                                "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038869-545ff5ef-b3da-40c6-a910-bab595d0f0a8.png";
+                            print(url);
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
                 Center(
                   child: TextField(
+                    controller: nameController,
                     autofocus: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), hintText: 'Nome'),
@@ -82,6 +143,7 @@ class _AddUserState extends State<AddUser> {
                 ),
                 Center(
                   child: TextField(
+                    controller: ageController,
                     autofocus: true,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), hintText: 'Idade'),
@@ -102,11 +164,12 @@ class _AddUserState extends State<AddUser> {
                         ),
                       ),
                       Checkbox(
-                        value: this.value,
-                        onChanged: (bool? value) {
+                        value: this.active,
+                        onChanged: (bool? active) {
                           setState(() {
-                            this.value = value!;
+                            this.active = active!;
                           });
+                          print(active);
                         },
                       ),
                     ],
