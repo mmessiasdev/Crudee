@@ -13,8 +13,22 @@ class AddUser extends StatefulWidget {
   State<AddUser> createState() => _AddUserState();
 }
 
+enum Avatar { one, two, three, four, five }
+
 class _AddUserState extends State<AddUser> {
+  Avatar? selectAvatar;
   bool value = false;
+  String type = "";
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    ageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,36 +52,21 @@ class _AddUserState extends State<AddUser> {
                       mainAxisExtent: 80,
                     ),
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: SecoundColor,
-                        ),
-                      ),
+                      ButtomCont(
+                        url:
+                            'https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038881-ac39566c-2fa5-4bcb-9c18-2df751b0abd2.png',
+                        border: selectAvatar == Avatar.one
+                            ? PrimaryColor
+                            : SecoundColor,
+                        onClick: () {
+                          setState(() {
+                            selectAvatar = Avatar.one;
+                            type =
+                                "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038881-ac39566c-2fa5-4bcb-9c18-2df751b0abd2.png";
+                            print(type);
+                          });
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -189,3 +188,47 @@ class OpcMenu extends StatelessWidget {
     );
   }
 }
+
+class ButtomCont extends StatelessWidget {
+  ButtomCont(
+      {super.key,
+      required this.url,
+      required this.onClick,
+      required this.border});
+
+  String url;
+  final Function onClick;
+  final Color border;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AvatarColor,
+          border: Border.all(
+            width: 2,
+            color: border,
+          ),
+        ),
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
+        ),
+      ),
+      onTap: () {
+        onClick();
+      },
+    );
+  }
+}
+
+// https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038881-ac39566c-2fa5-4bcb-9c18-2df751b0abd2.png
+
+// https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038927-28b4047a-fcf1-4ed1-943d-bcf35c8f30d9.png
+
+// https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038909-572f9365-9a98-4818-bfbb-90ab9bb1604a.png
+
+// https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038922-327de286-991a-4bce-afce-0f68ab971bb9.png
+
+// https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038869-545ff5ef-b3da-40c6-a910-bab595d0f0a8.png
