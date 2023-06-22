@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:fluttercode/view/components/adduser.dart';
+import 'package:fluttercode/view/screens/adduser.dart';
 import 'package:fluttercode/view/components/banner.dart';
 import 'package:fluttercode/view/components/cardcontainer.dart';
 import 'package:fluttercode/view/components/colors.dart';

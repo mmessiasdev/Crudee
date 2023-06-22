@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fluttercode/controller/auth.dart';
 import 'package:fluttercode/view/components/colors.dart';
 import 'package:fluttercode/view/components/header.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -176,29 +177,19 @@ class _AddUserState extends State<AddUser> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: GestureDetector(
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          'Adicionar',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                      ),
-                      height: 70,
-                      decoration: BoxDecoration(
-                          color: TerciaryColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      width: MediaQuery.of(context).size.width * 1,
-                    ),
-                    onTap: () {},
-                  ),
-                )
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: InputTextButton(
+                      onClick: () {
+                        print(nameController.text);
+                        authController().students(
+                            name: nameController.text,
+                            age: ageController.text,
+                            url: url,
+                            active: active);
+                      },
+                      title: 'Adicionar',
+                      color: PrimaryColor,
+                    ))
               ],
             ),
           )
@@ -282,6 +273,45 @@ class ButtomCont extends StatelessWidget {
       onTap: () {
         onClick();
       },
+    );
+  }
+}
+
+class InputTextButton extends StatelessWidget {
+  final String title;
+  final Function onClick;
+  final Color? color;
+  const InputTextButton(
+      {Key? key, required this.title, required this.onClick, this.color})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        backgroundColor: color ?? Color.fromRGBO(19, 68, 90, 1),
+        minimumSize: const Size(double.maxFinite, 50),
+        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(6.0)),
+        ),
+      ),
+      onPressed: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+        onClick();
+      },
+      child: Center(
+        child: Text(
+          'Adicionar',
+          style: GoogleFonts.montserrat(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Color.fromARGB(255, 255, 255, 255),
+            decoration: TextDecoration.none,
+          ),
+        ),
+      ),
     );
   }
 }

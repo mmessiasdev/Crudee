@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttercode/view/components/card.dart';
-import 'package:fluttercode/view/components/userslist.dart';
+import 'package:fluttercode/view/screens/userslist.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardContainer extends StatelessWidget {
