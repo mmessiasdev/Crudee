@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fluttercode/view/components/adduser.dart';
 import 'package:fluttercode/view/components/banner.dart';
 import 'package:fluttercode/view/components/cardcontainer.dart';
 import 'package:fluttercode/view/components/colors.dart';
@@ -12,16 +13,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Header(),
-        InitialBanner(),
-        CardContainer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          child: CardContainer(),
-        )
-      ],
+    return Scaffold(
+      body: ListView(
+        children: [
+          Header(),
+          InitialBanner(),
+          CardContainer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: CardContainer(),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        highlightElevation: 3,
+        backgroundColor: TerciaryColor,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddUser(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
