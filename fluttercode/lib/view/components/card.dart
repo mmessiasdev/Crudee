@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:fluttercode/view/screens/studentscreen.dart';
+import 'package:fluttercode/view/screens/userscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardCont extends StatelessWidget {
-  CardCont(
-      {super.key,
-      required this.name,
-      required this.age,
-      required this.avatar,
-      required this.active,
-      required this.id});
+  CardCont({
+    super.key,
+    required this.name,
+    required this.age,
+    required this.avatar,
+    required this.active,
+    required this.categ,
+    required this.id,
+    required this.subText,
+  });
 
   String name;
   String age;
   String avatar;
   bool active;
   String id;
+  String categ;
+  String subText;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +49,7 @@ class CardCont extends StatelessWidget {
                 children: [
                   Text(
                     name,
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -53,6 +59,7 @@ class CardCont extends StatelessWidget {
                   ),
                   Text(
                     age,
+                    textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -71,6 +78,8 @@ class CardCont extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => UserScreen(
+                subText: subText,
+                categ: categ,
                 name: name,
                 age: age,
                 active: active,

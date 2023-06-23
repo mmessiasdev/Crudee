@@ -70,8 +70,9 @@ class Attributes {
 
   Attributes.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+
     name = json['attributes']['name'];
-    age = json['attributes']['age'];
+    age = json['attributes']['subjects'];
     avatar = json['attributes']['avatar'];
     active = json['attributes']['active'];
     createdAt = json['attributes']['createdAt'];
@@ -81,8 +82,9 @@ class Attributes {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+
     data['attributes']['name'] = this.name;
-    data['attributes']['age'] = this.age;
+    data['attributes']['subjects'] = this.age;
     data['attributes']['avatar'] = this.avatar;
     data['attributes']['active'] = this.active;
     data['attributes']['createdAt'] = this.createdAt;

@@ -10,14 +10,17 @@ import 'card.dart';
 import 'colors.dart';
 
 class CardContainer extends StatefulWidget {
-  CardContainer(
-      {super.key,
-      required this.categ,
-      required this.title,
-      required this.categPush});
+  CardContainer({
+    super.key,
+    required this.categ,
+    required this.title,
+    required this.categPush,
+    required this.subText,
+  });
   String categ;
   String title;
   String categPush;
+  String subText;
 
   @override
   State<CardContainer> createState() => _CardContainerState();
@@ -79,6 +82,7 @@ class _CardContainerState extends State<CardContainer> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => UsersList(
+                          subText: widget.subText,
                           categ: widget.categPush,
                         ),
                       ),
@@ -102,6 +106,8 @@ class _CardContainerState extends State<CardContainer> {
                           var renders = snapshot.data![index];
                           if (renders.name != null) {
                             return CardCont(
+                              subText: widget.subText,
+                                categ: widget.categ,
                                 id: renders.id.toString(),
                                 name: renders.name.toString(),
                                 age: renders.age.toString(),

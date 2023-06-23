@@ -25,17 +25,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: ListView(
         children: [
-          Header(title: 'Crudee',),
+          Header(
+            title: 'Crudee',
+          ),
           InitialBanner(),
           CardContainer(
+            subText: "Idade",
             categ: "students",
             title: "Alunos",
             categPush: "students",
           ),
-          CardContainer(
-            categ: "teachers",
-            title: "Professores",
-            categPush: "teachers",
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: CardContainer(
+              subText: "Matéria",
+              categ: "teachers",
+              title: "Professores",
+              categPush: "teachers",
+            ),
+          ),
+          SizedBox(
+            height: 50,
           ),
         ],
       ),
@@ -44,11 +54,11 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: TerciaryColor,
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddUser(),
-            ),
+          showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) => AddUser(),
           );
         },
       ),
