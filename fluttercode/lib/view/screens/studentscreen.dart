@@ -1,33 +1,68 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fluttercode/view/components/header.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+
+
+import '../../model/students.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+  UserScreen({super.key, required this.name, required this.age, required this.avatar, required this.active, required this.id});
+
+  String name;
+  String age;
+  String avatar;
+  bool active;
+  String id;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
-  bool value = false;
+    Future<List<Attributes>> getStudentList() async {
+    // TODO: implement getPostsList
+    List<Attributes> listItens = [];
+    var url = Uri.parse('http://localhost:1337/api/students/${widget.id}');
+    var response = await http.get(url);
+    var body = jsonDecode(response.body);
+    // parse
+    var itemCount = body["data"];
+    for (var i = 0; i < itemCount.length; i++) {
+      listItens.add(Attributes.fromJson(itemCount[i]));
+    }
+    return listItens;
+  }
+
+    Future<void> getData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    getStudentList();
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         children: [
-          Header(),
+          Header(title: widget.name,),
           Padding(
             padding: const EdgeInsets.all(25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(),
+                CircleAvatar(
+                  child: Image.network(
+                    widget.avatar
+                  ),
+                ),
                 Text(
-                  'Nome',
+                  widget.name,
                   style: GoogleFonts.montserrat(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
@@ -36,7 +71,7 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                 ),
                 Text(
-                  'Idade',
+                  widget.age,
                   style: GoogleFonts.montserrat(
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
@@ -59,10 +94,10 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                       ),
                       Checkbox(
-                        value: this.value,
-                        onChanged: (bool? value) {
+                        value: this.widget.active,
+                        onChanged: (bool? active) {
                           setState(() {
-                            this.value = value!;
+                            this.widget.active = widget.active;
                           });
                         },
                       ),

@@ -22,7 +22,6 @@ class RemoteAuthService {
         "Content-Type": "application/json",
       },
     );
-    print(response);
     return response;
   }
 }

@@ -1,12 +1,49 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:fluttercode/view/components/card.dart';
 import 'package:fluttercode/view/screens/userslist.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
-class CardContainer extends StatelessWidget {
-  const CardContainer({super.key});
+import '../../model/students.dart';
+import 'card.dart';
+import 'colors.dart';
+
+class CardContainer extends StatefulWidget {
+  CardContainer(
+      {super.key,
+      required this.categ,
+      required this.title,
+      required this.categPush});
+  String categ;
+  String title;
+  String categPush;
+
+  @override
+  State<CardContainer> createState() => _CardContainerState();
+}
+
+class _CardContainerState extends State<CardContainer> {
+  // ${dotenv.get('BASEURL').toString()}/api/complaints?sort=id:DESC
+  Future<List<Attributes>> getStudentList() async {
+    // TODO: implement getPostsList
+    List<Attributes> listItens = [];
+    var url = Uri.parse('http://localhost:1337/api/${widget.categ}');
+    var response = await http.get(url);
+    var body = jsonDecode(response.body);
+    // parse
+    var itemCount = body["data"];
+    for (var i = 0; i < itemCount.length; i++) {
+      listItens.add(Attributes.fromJson(itemCount[i]));
+    }
+    return listItens;
+  }
+
+  Future<void> getData() async {
+    await Future.delayed(const Duration(seconds: 2));
+    getStudentList();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +56,7 @@ class CardContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Alunos',
+                  widget.title,
                   style: GoogleFonts.montserrat(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -41,7 +78,9 @@ class CardContainer extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => UsersList(),
+                        builder: (context) => UsersList(
+                          categ: widget.categPush,
+                        ),
                       ),
                     );
                   },
@@ -51,16 +90,30 @@ class CardContainer extends StatelessWidget {
           ),
           SizedBox(
             height: 240,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                CardCont(),
-                CardCont(),
-                CardCont(),
-                CardCont(),
-                CardCont(),
-              ],
-            ),
+            child: FutureBuilder<List<Attributes>>(
+                future: getStudentList(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          var renders = snapshot.data![index];
+                          if (renders.name != null) {
+                            return CardCont(
+                                id: renders.id.toString(),
+                                name: renders.name.toString(),
+                                age: renders.age.toString(),
+                                avatar: renders.avatar.toString(),
+                                active: renders.active!);
+                          }
+                        });
+                  }
+                  return CircularProgressIndicator(
+                    color: PrimaryColor,
+                  );
+                }),
           )
         ],
       ),

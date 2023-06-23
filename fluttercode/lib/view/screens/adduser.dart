@@ -36,7 +36,7 @@ class _AddUserState extends State<AddUser> {
     return Scaffold(
       body: ListView(
         children: [
-          Header(),
+          Header(title: 'Add Usuário',),
           OpcMenu(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -224,6 +224,7 @@ class OpcMenu extends StatelessWidget {
             ),
           ),
           SizedBox(
+            height: 70,
             width: MediaQuery.of(context).size.width * .5,
             child: Center(
               child: Text(

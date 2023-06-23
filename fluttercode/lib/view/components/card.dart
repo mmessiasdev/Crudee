@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:fluttercode/view/screens/userscreen.dart';
+import 'package:fluttercode/view/screens/studentscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CardCont extends StatelessWidget {
-  const CardCont({super.key});
+  CardCont(
+      {super.key,
+      required this.name,
+      required this.age,
+      required this.avatar,
+      required this.active,
+      required this.id});
+
+  String name;
+  String age;
+  String avatar;
+  bool active;
+  String id;
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +34,16 @@ class CardCont extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(),
+              CircleAvatar(
+                child: Image.network(
+                  avatar,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Column(
                 children: [
                   Text(
-                    'Nome',
+                    name,
                     style: GoogleFonts.montserrat(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -35,7 +52,7 @@ class CardCont extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Idade',
+                    age,
                     style: GoogleFonts.montserrat(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -45,7 +62,7 @@ class CardCont extends StatelessWidget {
                   ),
                 ],
               ),
-              Icon(Icons.check)
+              active == true ? Icon(Icons.check) : Icon(Icons.warning)
             ],
           ),
         ),
@@ -53,7 +70,13 @@ class CardCont extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => UserScreen(),
+              builder: (context) => UserScreen(
+                name: name,
+                age: age,
+                active: active,
+                avatar: avatar,
+                id: id,
+              ),
             ),
           );
         },

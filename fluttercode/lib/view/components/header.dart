@@ -5,7 +5,8 @@ import 'package:fluttercode/view/components/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  Header({super.key, required this.title});
+  String title;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class Header extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              'Crudee',
+              title,
               style: GoogleFonts.montserrat(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
