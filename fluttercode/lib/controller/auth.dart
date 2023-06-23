@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:fluttercode/view/screens/useredit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../service/remote/auth.dart';
 
@@ -11,6 +14,8 @@ class authController {
     try {
       var userResult = await RemoteAuthService()
           .addStudent(name: name, age: age, url: url, active: active);
+      Navigator.of(Get.overlayContext!).pushReplacementNamed('/');
+
       print(userResult);
     } catch (e) {
       print(e);
@@ -25,9 +30,9 @@ class authController {
       required String categ,
       required bool active}) async {
     try {
-      var userResult = await RemoteAuthService()
-          .editUsers(name: name, age: age, url: url, active: active, id: id, categ: categ);
-      print(userResult);
+      var userResult = await RemoteAuthService().editUsers(
+          name: name, age: age, url: url, active: active, id: id, categ: categ);
+      Navigator.of(Get.overlayContext!).pushReplacementNamed('/');
     } catch (e) {
       print(e);
     }
@@ -41,10 +46,9 @@ class authController {
     try {
       var userResult = await RemoteAuthService()
           .addTeacher(name: name, age: age, url: url, active: active);
-      print(userResult);
+      Navigator.of(Get.overlayContext!).pushReplacementNamed('/');
     } catch (e) {
       print(e);
     }
   }
-
 }

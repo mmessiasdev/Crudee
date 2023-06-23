@@ -1,16 +1,24 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../controller/auth.dart';
+import '../../model/students.dart';
 import '../components/buttomcont.dart';
 import '../components/colors.dart';
 import '../components/header.dart';
 import '../components/inputtextbutton.dart';
+import 'package:http/http.dart' as http;
 
 class EditUser extends StatefulWidget {
-  EditUser({super.key, required this.id, required this.categ, required this.subText});
+  EditUser(
+      {super.key,
+      required this.id,
+      required this.categ,
+      required this.subText});
   String id;
   String categ;
   String subText;
@@ -24,7 +32,8 @@ enum Avatar { one, two, three, four, five }
 class _EditUserState extends State<EditUser> {
   Avatar? selectAvatar;
   bool active = false;
-  String url = "";
+  String url =
+      "https://github-production-user-asset-6210df.s3.amazonaws.com/78608382/248038881-ac39566c-2fa5-4bcb-9c18-2df751b0abd2.png";
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -34,6 +43,26 @@ class _EditUserState extends State<EditUser> {
     nameController.dispose();
     ageController.dispose();
     super.dispose();
+  }
+
+  // ${dotenv.get('BASEURL').toString()}/api/complaints?sort=id:DESC
+  Future<List<Attributes>> getStudentList() async {
+    // TODO: implement getPostsList
+    List<Attributes> listItens = [];
+    var url =
+        Uri.parse('http://localhost:1337/api/${widget.categ}/${widget.id}');
+    var response = await http.get(url);
+    var body = jsonDecode(response.body);
+    // parse
+    var itemCount = body["data"];
+    for (var i = 0; i < itemCount.length; i++) {
+      listItens.add(Attributes.fromJson(itemCount[i]));
+    }
+    return listItens;
+  }
+
+  Future<void> getData() async {
+    setState(() {});
   }
 
   @override
@@ -202,9 +231,30 @@ class _EditUserState extends State<EditUser> {
                     ))
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
+
+          // FutureBuilder<List<Attributes>>(
+          //   future: getStudentList(),
+          //   builder: (context, snapshot) {
+          //     if (snapshot.hasData) {
+          //       return ListView.builder(
+          //         shrinkWrap: true,
+          //         scrollDirection: Axis.vertical,
+          //         itemCount: snapshot.data!.length,
+          //         itemBuilder: (context, index) {
+          //           var renders = snapshot.data![index];
+          //           if (renders.name != null) {}
+          //         },
+          //       );
+          //     }
+          //     return Center(
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   },
+          // ),
+

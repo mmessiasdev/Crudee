@@ -51,37 +51,42 @@ class _UsersListState extends State<UsersList> {
           Header(
             title: 'Crudee',
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 100),
-            child: FutureBuilder<List<Attributes>>(
-                future: getStudentList(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return SizedBox(
-                      child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            var renders = snapshot.data![index];
-                            if (renders.name != null) {
-                              return ContUser(
-                                subText: widget.subText,
-                                categ: widget.categ,
-                                name: renders.name.toString(),
-                                age: renders.age.toString(),
-                                avatar: renders.avatar.toString(),
-                                active: renders.active!,
-                                id: renders.id.toString(),
-                              );
-                            }
-                          }),
+          Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 100),
+              child: FutureBuilder<List<Attributes>>(
+                  future: getStudentList(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return SizedBox(
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              var renders = snapshot.data![index];
+                              if (renders.name != null) {
+                                return ContUser(
+                                  subText: widget.subText,
+                                  categ: widget.categ,
+                                  name: renders.name.toString(),
+                                  age: renders.age.toString(),
+                                  avatar: renders.avatar.toString(),
+                                  active: renders.active!,
+                                  id: renders.id.toString(),
+                                );
+                              }
+                            }),
+                      );
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: PrimaryColor,
+                      ),
                     );
-                  }
-                  return CircularProgressIndicator(
-                    color: PrimaryColor,
-                  );
-                }),
+                  }),
+            ),
           ),
         ],
       ),

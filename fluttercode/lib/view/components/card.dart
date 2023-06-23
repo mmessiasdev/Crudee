@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fluttercode/view/components/colors.dart';
 import 'package:fluttercode/view/screens/userscreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,6 +41,7 @@ class CardCont extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CircleAvatar(
+                backgroundColor: PrimaryColor,
                 child: Image.network(
                   avatar,
                   fit: BoxFit.cover,
@@ -69,7 +71,7 @@ class CardCont extends StatelessWidget {
                   ),
                 ],
               ),
-              active == true ? Icon(Icons.check) : Icon(Icons.warning)
+              active == true ? const Icon(Icons.check) : const Icon(Icons.warning)
             ],
           ),
         ),

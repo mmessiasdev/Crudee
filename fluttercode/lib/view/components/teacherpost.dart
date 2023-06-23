@@ -37,7 +37,7 @@ class _TeacherPostState extends State<TeacherPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: SecoundColor,
+      backgroundColor: AvatarColor,
       body: ListView(
         children: [
           Header(

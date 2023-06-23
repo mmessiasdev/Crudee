@@ -100,7 +100,7 @@ class _CardContainerState extends State<CardContainer> {
                   if (snapshot.hasData) {
                     return ListView.builder(
                         shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
+                        scrollDirection: Axis.horizontal, 
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           var renders = snapshot.data![index];
@@ -116,8 +116,14 @@ class _CardContainerState extends State<CardContainer> {
                           }
                         });
                   }
-                  return CircularProgressIndicator(
-                    color: PrimaryColor,
+                  return Center(
+                    child: SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: CircularProgressIndicator(
+                        color: PrimaryColor,
+                      ),
+                    ),
                   );
                 }),
           )
